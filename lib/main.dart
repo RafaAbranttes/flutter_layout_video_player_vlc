@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_video_vlc/controller/video_player_controller.dart';
 import 'package:flutter_layout_video_vlc/home.dart';
+import 'package:flutter_layout_video_vlc/inicio.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -10,10 +11,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => VideoPlaverController(),
+          create: (_) => VideoPlayerController(),
         )
       ],
       child: MaterialApp(
@@ -22,7 +25,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Home(),
+        home: Inicio(
+
+        ),
       ),
     );
   }
