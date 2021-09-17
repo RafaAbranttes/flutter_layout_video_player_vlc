@@ -92,21 +92,26 @@ class _HomeState extends State<Home> {
     await _controller.setVideoAspectRatio("$width:$height");
     double escala = 0;
 
-    if (Platform.isIOS) {
+    if (Platform.isIOS &&
+        (_controller.value.size.height > _controller.value.size.width)) {
       if (height > _controller.value.size.height) {
         escala =
             (1 / (_controller.value.size.height / height)) + (height / width);
-      } else if (height < _controller.value.size.height) {
+      } else if (height < _controller.value.size.height &&
+          (_controller.value.size.height > _controller.value.size.width)) {
         escala = (1 / (_controller.value.size.height / height)) +
             (_controller.value.size.width / _controller.value.size.height);
-      } else {
+      } else if (height == _controller.value.size.height &&
+          (_controller.value.size.height > _controller.value.size.width)) {
         escala = 1;
       }
     }
-    if (Platform.isAndroid) {
-      escala = 2.5;
+    if (Platform.isAndroid &&
+        (_controller.value.size.height < _controller.value.size.width)) {
+      escala = 1 + ((height/_controller.value.size.width)/(width/_controller.value.size.height));
     }
 
+        print("width phone result: " + escala.toString());
     // await _controller.setVideoScale(escala);
     await _controller.setVideoScale(escala);
   }
@@ -140,14 +145,25 @@ class _HomeState extends State<Home> {
           position = oPosition.toString().split('.')[0];
           duration = oDuration.toString().split('.')[0];
         }
+        validPosition = oDuration.compareTo(oPosition) >= 0;
+        sliderValue = validPosition ? oPosition.inSeconds.toDouble() : 0;
       }
+      Provider.of<VideoPlayerController>(context, listen: false)
+              .setControllerDurationInSecond =
+          _controller.value.duration.inSeconds.toDouble();
 
       setState(() {});
+      Provider.of<VideoPlayerController>(context, listen: false).setSlideValue =
+          sliderValue;
+      Provider.of<VideoPlayerController>(context, listen: false)
+          .setValidPosition = validPosition;
 
       Provider.of<VideoPlayerController>(context, listen: false).setPosition =
           position;
       Provider.of<VideoPlayerController>(context, listen: false).setDuration =
           duration;
+      // _controller.setTime(Provider.of<VideoPlayerController>(context).getSlideValue.toInt() * 1000);
+      Provider.of<VideoPlayerController>(context, listen: false).setController = _controller;
     }
   }
 
@@ -167,29 +183,16 @@ class _HomeState extends State<Home> {
 
   Future<void> backPage() async {
     if (_controller == null) {
-      // If there was no controller, just create a new one
-
     } else {
-      // If there was a controller, we need to dispose of the old one first
-      final oldController = _controller;
-
-      // Registering a callback for the end of next frame
-      // to dispose of an old controller
-      // (which won't be used anymore after calling setState)
+      // final oldController = _controller;
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         await _controller.dispose();
         if (_timer != null) _timer.cancel();
-        // Initing new controller
       });
       setState(() {
         _controller = null; //   _controller = null;
       });
-
       Navigator.of(context).pop();
-      // Making sure that controller is not used by setting it to null
-      // setState(() {
-
-      // });
     }
   }
 
@@ -201,13 +204,16 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Consumer<VideoPlayerController>(
         builder: (context, videoPlayController, child) {
+
+          print("width phone: " + width.toString() + "  width video: " + _controller.value.size.width.toString() + "  height phone: " + height.toString() + "  height video: "  + _controller.value.size.height.toString());
+          
           if ((_controller.value.playingState == PlayingState.ended ||
-              _controller.value.playingState == PlayingState.stopped) && _controller != null) {
-            
-              if (!finish) {
-                finish = true;
-              }
-            
+                  _controller.value.playingState == PlayingState.stopped) &&
+              _controller != null) {
+            if (!finish) {
+              finish = true;
+            }
+
             Future.delayed(Duration(milliseconds: 250), () {
               // videoPlayController.setLoading = true;
               // _controller.stop();
@@ -257,7 +263,8 @@ class _HomeState extends State<Home> {
           }
 
           if (videoPlayController.getClickToTime &&
-              videoPlayController.getFirstClick && _controller != null) {
+              videoPlayController.getFirstClick &&
+              _controller != null) {
             startTime();
             Future.delayed(Duration(milliseconds: 1), () {
               videoPlayController.setClickToTime = false;
@@ -265,8 +272,9 @@ class _HomeState extends State<Home> {
           }
 
           if (!videoPlayController.getBack10sec &&
-              !videoPlayController.getAdvance10sec && 
-              _start == 0 && _controller != null) {
+              !videoPlayController.getAdvance10sec &&
+              _start == 0 &&
+              _controller != null) {
             Future.delayed(Duration(milliseconds: 1), () {
               if (videoPlayController.getPause) {
                 videoPlayController.setFirstClick = false;
@@ -280,20 +288,27 @@ class _HomeState extends State<Home> {
               }
             });
           } else if ((videoPlayController.getBack10sec ||
-              videoPlayController.getAdvance10sec) && _controller != null) {
+                  videoPlayController.getAdvance10sec) &&
+              _controller != null) {
             startTime();
           }
 
-          if (videoPlayController.getFullScreen && Platform.isIOS && _controller != null) {
+          if (videoPlayController.getFullScreen &&
+              Platform.isIOS &&
+              _controller != null) {
             SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
             SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
             ));
-          } else if (!videoPlayController.getFullScreen && Platform.isIOS && _controller != null) {
+          } else if (!videoPlayController.getFullScreen &&
+              Platform.isIOS &&
+              _controller != null) {
             SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
           }
 
-          if (videoPlayController.getFullScreen && Platform.isAndroid && _controller != null) {
+          if (videoPlayController.getFullScreen &&
+              Platform.isAndroid &&
+              _controller != null) {
             // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
             // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
             //   statusBarColor: Colors.transparent,
@@ -301,7 +316,9 @@ class _HomeState extends State<Home> {
             FlutterStatusbarManager.setColor(Colors.transparent,
                 animated: true);
             FlutterStatusbarManager.setFullscreen(true);
-          } else if (!videoPlayController.getFullScreen && Platform.isAndroid && _controller != null) {
+          } else if (!videoPlayController.getFullScreen &&
+              Platform.isAndroid &&
+              _controller != null) {
             FlutterStatusbarManager.setColor(Colors.transparent,
                 animated: true);
             FlutterStatusbarManager.setFullscreen(false);
@@ -310,12 +327,14 @@ class _HomeState extends State<Home> {
           if ((videoPlayController.getPause &&
                   videoPlayController.getFirstClick) ||
               (videoPlayController.getPause &&
-                  videoPlayController.getShowBottomControls) && _controller != null) {
+                      videoPlayController.getShowBottomControls) &&
+                  _controller != null) {
             _controller.pause();
           } else if ((videoPlayController.getFirstClick &&
                   !videoPlayController.getPause) ||
               (videoPlayController.getShowBottomControls &&
-                  !videoPlayController.getPause) && _controller != null) {
+                      !videoPlayController.getPause) &&
+                  _controller != null) {
             _controller.play();
           }
 

@@ -17,6 +17,13 @@ class ControlsBottomVideoWidget extends StatelessWidget {
 
     return Consumer<VideoPlayerController>(
       builder: (context, videoPlayerController, child) {
+        void _onSliderPositionChanged(double progress) {
+          Provider.of<VideoPlayerController>(context, listen: false)
+              .setSlideValue = progress.floor().toDouble();
+
+          //convert to Milliseconds since VLC requires MS to set time
+        }
+
         return Container(
           child: Stack(
             children: [
@@ -245,8 +252,42 @@ class ControlsBottomVideoWidget extends StatelessWidget {
                 ),
               ),
               Container(
+                alignment: Alignment.topCenter,
                 height: height * 0.01,
-                color: Colors.transparent,
+                
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: height * 0.01),
+                    alignment: Alignment.topCenter,
+                    child: SliderTheme(
+                      data: SliderTheme.of(context).copyWith(
+                        trackHeight: 2.0,
+                        trackShape: CustomTrackShape(),
+                      ),
+                      child: Slider(
+                        activeColor: Colors.red,
+                        inactiveColor: Colors.white70,
+                        value: Provider.of<VideoPlayerController>(context)
+                            .getSlideValue,
+                        min: 0.0,
+                        // max: 13,
+                        max: (!Provider.of<VideoPlayerController>(context)
+                                    .getValidPosition &&
+                                Provider.of<VideoPlayerController>(context)
+                                        .getControllerDurationInSecond ==
+                                    null)
+                            ? 1.0
+                            : Provider.of<VideoPlayerController>(context)
+                                .getControllerDurationInSecond,
+                        onChanged: Provider.of<VideoPlayerController>(context)
+                                .getValidPosition
+                            ? Provider.of<VideoPlayerController>(context).onSliderPositionChanged
+                            : null,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -268,6 +309,22 @@ class CustomTrackShape2 extends RoundedRectSliderTrackShape {
     final double trackLeft = offset.dx;
     final double trackTop =
         offset.dy + (parentBox.size.height - trackHeight) / 2;
+    final double trackWidth = parentBox.size.width;
+    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
+  }
+}
+
+class CustomTrackShape extends RoundedRectSliderTrackShape {
+  Rect getPreferredRect({
+    @required RenderBox parentBox,
+    Offset offset = Offset.zero,
+    @required SliderThemeData sliderTheme,
+    bool isEnabled = false,
+    bool isDiscrete = false,
+  }) {
+    final double trackHeight = sliderTheme.trackHeight;
+    final double trackLeft = offset.dx;
+    final double trackTop = offset.dy + (parentBox.size.height - trackHeight);
     final double trackWidth = parentBox.size.width;
     return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }

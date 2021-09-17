@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 
 class VideoPlayerController extends ChangeNotifier {
   bool _firstClick = false;
@@ -16,6 +17,48 @@ class VideoPlayerController extends ChangeNotifier {
   String _duration = '00:01';
   bool _loading = false;
   bool _replay = false;
+  double _controllerDurationInSecond;
+  int _setTime;
+
+  VlcPlayerController _controller;
+
+  int get getSetTime {
+    return this._setTime;
+  }
+
+  set setSetTime(int setTime) {
+    this._setTime = setTime;
+    notifyListeners();
+  }
+
+  bool _validPosition = false;
+  double _slideValue = 1;
+
+  double get getControllerDurationInSecond {
+    return this._controllerDurationInSecond;
+  }
+
+  set setControllerDurationInSecond(double controllerDurarionInSecond) {
+    this._controllerDurationInSecond = controllerDurarionInSecond;
+    notifyListeners();
+  }
+
+  double get getSlideValue {
+    return this._slideValue;
+  }
+
+  set setSlideValue(double slideValue) {
+    this._slideValue = slideValue;
+  }
+
+  bool get getValidPosition {
+    return this._validPosition;
+  }
+
+  set setValidPosition(bool validPosition) {
+    this._validPosition = validPosition;
+    notifyListeners();
+  }
 
   get getReplay {
     return this._replay;
@@ -178,6 +221,19 @@ class VideoPlayerController extends ChangeNotifier {
     this._duration = '00:01';
     this._loading = false;
     this._replay = false;
+    this._validPosition = false;
+    this._slideValue = 1;
     notifyListeners();
+  }
+
+  set setController(VlcPlayerController controller){
+    this._controller = controller;
+  }
+
+  void onSliderPositionChanged(double progress) {
+    
+      this._slideValue = progress.floor().toDouble();
+    //convert to Milliseconds since VLC requires MS to set time
+    this._controller.setTime(this._slideValue.toInt() * 1000);
   }
 }
