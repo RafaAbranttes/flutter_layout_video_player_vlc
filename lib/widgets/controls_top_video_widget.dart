@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_video_vlc/controller/video_player_controller.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
@@ -26,17 +27,20 @@ class ControlsTopVideoWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                   ),
-                  child: TextButton(
-                    child: Icon(
-                      Icons.settings_backup_restore_rounded,
-                      size: width * 0.2,
-                    ),
-                    style: TextButton.styleFrom(
-                        primary: Colors.white, shape: CircleBorder()),
-                    onPressed: () {
-                      videoPlayerController.setBack10sec = true;
-                    },
-                  ),
+                  child: videoPlayerController.getLoading
+                      ? Container()
+                      : TextButton(
+                          child: SvgPicture.asset(
+                            "assets/icons/icon-voltar-10s.svg",
+                            color: Colors.white,
+                            height: height * 0.1,
+                          ),
+                          style: TextButton.styleFrom(
+                              primary: Colors.white, shape: CircleBorder()),
+                          onPressed: () {
+                            videoPlayerController.setBack10sec = true;
+                          },
+                        ),
                 ),
                 Container(
                   alignment: Alignment.center,
@@ -45,28 +49,57 @@ class ControlsTopVideoWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                   ),
-                  child: TextButton(
-                    child: Icon(
-                      !videoPlayerController.getPause
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                      size: width * 0.27,
-                    ),
-                    style: TextButton.styleFrom(
-                        primary: Colors.white, shape: CircleBorder()),
-                    onPressed: () async {
-                      videoPlayerController.setPause =
-                          !videoPlayerController.getPause;
-                      if (videoPlayerController.getPause) {
-                      } else {
-                        await Future.delayed(Duration(milliseconds: 750), () {
-                          videoPlayerController.setFirstClick = false;
-                          videoPlayerController.setShowControls = false;
-                          videoPlayerController.setShowBottomControls = false;
-                        });
-                      }
-                    },
-                  ),
+                  child: videoPlayerController.getLoading
+                      ? TextButton(
+                          child: SvgPicture.asset(
+                            "assets/icons/icon-play.svg",
+                            color: Colors.white,
+                            height: height * 0.15,
+                          ),
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            shape: CircleBorder(),
+                          ),
+                          onPressed: () async {
+                            if (videoPlayerController.getLoading) {
+                              videoPlayerController.setReplay = true;
+                              videoPlayerController.setFirstClick = false;
+                              videoPlayerController.setShowControls = false;
+                              videoPlayerController.setShowBottomControls =
+                                  false;
+                              videoPlayerController.setPause = false;
+                            }
+                          },
+                        )
+                      : TextButton(
+                          child: !videoPlayerController.getPause
+                              ? SvgPicture.asset(
+                                  "assets/icons/icon-pause-small.svg",
+                                  color: Colors.white,
+                                  height: height * 0.15,
+                                )
+                              : SvgPicture.asset(
+                                  "assets/icons/icon-play.svg",
+                                  color: Colors.white,
+                                  height: height * 0.15,
+                                ),
+                          style: TextButton.styleFrom(
+                              primary: Colors.white, shape: CircleBorder()),
+                          onPressed: () async {
+                            videoPlayerController.setPause =
+                                !videoPlayerController.getPause;
+                            if (videoPlayerController.getPause) {
+                            } else {
+                              await Future.delayed(Duration(milliseconds: 750),
+                                  () {
+                                videoPlayerController.setFirstClick = false;
+                                videoPlayerController.setShowControls = false;
+                                videoPlayerController.setShowBottomControls =
+                                    false;
+                              });
+                            }
+                          },
+                        ),
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -75,21 +108,20 @@ class ControlsTopVideoWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                   ),
-                  child: TextButton(
-                    child: Transform(
-                      alignment: Alignment.center,
-                      transform: Matrix4.rotationY(math.pi),
-                      child: Icon(
-                        Icons.settings_backup_restore_rounded,
-                        size: width * 0.2,
-                      ),
-                    ),
-                    style: TextButton.styleFrom(
-                        primary: Colors.white, shape: CircleBorder()),
-                    onPressed: () {
-                      videoPlayerController.setAdvance10sec = true;
-                    },
-                  ),
+                  child: videoPlayerController.getLoading
+                      ? Container()
+                      : TextButton(
+                          child: SvgPicture.asset(
+                            "assets/icons/icon-avancar-10s.svg",
+                            color: Colors.white,
+                            height: height * 0.1,
+                          ),
+                          style: TextButton.styleFrom(
+                              primary: Colors.white, shape: CircleBorder()),
+                          onPressed: () {
+                            videoPlayerController.setAdvance10sec = true;
+                          },
+                        ),
                 ),
               ],
             ),

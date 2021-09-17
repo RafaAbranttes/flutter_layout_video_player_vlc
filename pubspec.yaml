@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.0
   flutter_vlc_player: ^6.0.4
+  flutter_svg: ^0.22.0
+  flutter_statusbar_manager: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -49,6 +51,56 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/sample.mp4
+    - assets/images/initial01.jpeg
+    - assets/images/initial02.jpeg
+    - assets/images/initial03.jpeg
+    - assets/images/backgroundP.png
+    - assets/images/logo.svg
+    - assets/images/logo.png
+    - assets/images/marca-dagua-P.svg
+    - assets/icons/icon-arrow.svg
+    - assets/icons/icon-lock.svg
+    - assets/icons/icon-message.svg
+    - assets/icons/icon-profile.svg
+    - assets/icons/icon-calendar.svg
+    - assets/icons/icon-profile.svg
+    - assets/icons/icon-setting.svg
+    - assets/icons/icon-show.svg
+    - assets/icons/icon-camera.svg
+    - assets/images/class01.jpeg
+    - assets/images/class02.jpeg
+    - assets/images/class03.jpeg
+    - assets/icons/icon-seta.svg
+    - assets/icons/icon-play.svg
+    - assets/icons/icon-voice.svg
+    - assets/video/01.mp4
+    - assets/video/02.mp4
+    - assets/icons/icon-play.svg
+    - assets/icons/icon-play-big.svg
+    - assets/icons/icon-expandir.svg
+    - assets/icons/icon-avancar-10s.svg
+    - assets/icons/icon-voltar-10s.svg
+    - assets/icons/icon-volume-up.svg
+    - assets/icons/icon-volume-off.svg
+    - assets/images/Pedro-paixao-prof.png
+    - assets/icons/icon-seta.svg
+    - assets/icons/icon-logo.png
+    - assets/icons/icon-pause.svg
+    - assets/icons/icon-som-off.svg
+    - assets/icons/icon-time.svg
+    - assets/icons/icon-intensidade.svg
+    - assets/icons/icon-next.svg
+    - assets/icons/icon-pause.svg
+    - assets/icons/icon-stop.svg
+    - assets/icons/icon-checkbox-off.svg
+    - assets/icons/icon-checkbox-on.svg
+    - assets/icons/icon-pause-small.svg
+    - assets/icons/icon-time.svg
+    - assets/icons/icon-chat.svg
+    - assets/icons/pause_clean.png
+    - assets/icons/play_clean.png
+    - assets/icons/logo_ios.png
+    - assets/icons/icon-share.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

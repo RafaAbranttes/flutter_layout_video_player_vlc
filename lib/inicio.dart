@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_layout_video_vlc/controller/video_player_controller.dart';
+
 import 'package:flutter_layout_video_vlc/home.dart';
+import 'package:provider/provider.dart';
 
 class Inicio extends StatelessWidget {
   @override
@@ -12,6 +15,8 @@ class Inicio extends StatelessWidget {
         child: ElevatedButton(
           child: Text("Clique Aqui!!"),
           onPressed: () {
+            Provider.of<VideoPlayerController>(context, listen: false)
+                .resetData();
             Navigator.push(
               context,
               MaterialPageRoute(
