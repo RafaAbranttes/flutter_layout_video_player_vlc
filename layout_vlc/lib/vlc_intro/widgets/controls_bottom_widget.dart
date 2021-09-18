@@ -30,8 +30,14 @@ class ControlsBottomWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
-                        height: height * 0.03,
-                        width: height * 0.03,
+                        height: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.03
+                            : height * 0.05,
+                        width: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.03
+                            : height * 0.05,
                         child: GestureDetector(
                           onTap: () {
                             Provider.of<VideoPlayerControlle>(context,
@@ -70,8 +76,14 @@ class ControlsBottomWidget extends StatelessWidget {
                         width: width * 0.01,
                       ),
                       Container(
-                        height: height * 0.03,
-                        width: height * 0.03,
+                        height: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.03
+                            : height * 0.05,
+                        width: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.03
+                            : height * 0.05,
                         child: GestureDetector(
                           onTap: () {
                             Provider.of<VideoPlayerControlle>(context,
@@ -101,8 +113,14 @@ class ControlsBottomWidget extends StatelessWidget {
                         width: width * 0.01,
                       ),
                       Container(
-                        height: height * 0.03,
-                        width: height * 0.03,
+                        height: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.03
+                            : height * 0.05,
+                        width: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.03
+                            : height * 0.05,
                         child: GestureDetector(
                           onTap: () {
                             Provider.of<VideoPlayerControlle>(context,
@@ -133,8 +151,14 @@ class ControlsBottomWidget extends StatelessWidget {
                         width: width * 0.01,
                       ),
                       Container(
-                        height: height * 0.03,
-                        width: height * 0.037,
+                        height: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.03
+                            : height * 0.05,
+                        width: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.037
+                            : height * 0.057,
                         child: GestureDetector(
                           onTap: () {
                             Provider.of<VideoPlayerControlle>(context,
@@ -162,10 +186,21 @@ class ControlsBottomWidget extends StatelessWidget {
                         width: width * 0.01,
                       ),
                       Container(
-                        child: Text(
-                          "${Provider.of<VideoPlayerControlle>(context).position}/${Provider.of<VideoPlayerControlle>(context).duration}",
-                          style: TextStyle(
-                            color: Colors.white,
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).orientation ==
+                                    Orientation.portrait
+                                ? height * 0.002
+                                : height * 0.0022),
+                        child: Center(
+                          child: Text(
+                            "${Provider.of<VideoPlayerControlle>(context).position}/${Provider.of<VideoPlayerControlle>(context).duration}",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: MediaQuery.of(context).orientation ==
+                                      Orientation.portrait
+                                  ? height * 0.017
+                                  : height * 0.025,
+                            ),
                           ),
                         ),
                       ),
@@ -176,8 +211,14 @@ class ControlsBottomWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
-                        height: height * 0.03,
-                        width: height * 0.03,
+                        height: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.03
+                            : height * 0.05,
+                        width: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.03
+                            : height * 0.05,
                         child: GestureDetector(
                           onTap: () {
                             Provider.of<VideoPlayerControlle>(context,
@@ -207,14 +248,29 @@ class ControlsBottomWidget extends StatelessWidget {
                               Icon(
                                 Icons.timer,
                                 color: Colors.white,
+                                size : MediaQuery.of(context).orientation ==
+                                          Orientation.portrait
+                                      ? height * 0.025 : height * 0.045
                               ),
                               Container(
                                 margin: EdgeInsets.only(
-                                  left: height * (0.03 - 0.017),
-                                  top: height * (0.03 - 0.017),
+                                  left: MediaQuery.of(context).orientation ==
+                                          Orientation.portrait
+                                      ? height * (0.03 - 0.017)
+                                      : height * (0.05 - 0.025),
+                                  top: MediaQuery.of(context).orientation ==
+                                          Orientation.portrait
+                                      ? height * (0.03 - 0.017)
+                                      : height * (0.05 - 0.025),
                                 ),
-                                height: height * 0.017,
-                                width: height * 0.017,
+                                height: MediaQuery.of(context).orientation ==
+                                        Orientation.portrait
+                                    ? height * 0.017
+                                    : height * 0.025,
+                                width: MediaQuery.of(context).orientation ==
+                                        Orientation.portrait
+                                    ? height * 0.017
+                                    : height * 0.025,
                                 decoration: BoxDecoration(
                                   color: Colors.red,
                                   borderRadius: BorderRadius.circular(90),
@@ -226,7 +282,9 @@ class ControlsBottomWidget extends StatelessWidget {
                                         .toString(),
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: height * 0.008),
+                                        fontSize:MediaQuery.of(context).orientation ==
+                                          Orientation.portrait
+                                      ? height * 0.008 : height * 0.012),
                                   ),
                                 ),
                               ),
@@ -238,8 +296,14 @@ class ControlsBottomWidget extends StatelessWidget {
                         width: width * 0.015,
                       ),
                       Container(
-                        height: height * 0.025,
-                        width: height * 0.025,
+                        height: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.025
+                            : height * 0.04,
+                        width: MediaQuery.of(context).orientation ==
+                                Orientation.portrait
+                            ? height * 0.025
+                            : height * 0.04,
                         child: GestureDetector(
                           onTap: () {
                             Provider.of<VideoPlayerControlle>(context,
@@ -251,13 +315,29 @@ class ControlsBottomWidget extends StatelessWidget {
                             if (Provider.of<VideoPlayerControlle>(context,
                                     listen: false)
                                 .fullScreen) {
-                              if (Platform.isAndroid) {
-                                SystemChrome.setEnabledSystemUIOverlays([]);
-                              }
-                              if (Platform.isIOS) {
-                                SystemChrome.setEnabledSystemUIOverlays(
-                                    [SystemUiOverlay.bottom]);
-                              }
+                              SystemChrome.setEnabledSystemUIOverlays([]);
+                              SystemChrome.setPreferredOrientations(
+                                  [DeviceOrientation.landscapeRight]);
+                              Provider.of<VideoPlayerControlle>(context,
+                                      listen: false)
+                                  .pause = false;
+                              // if (Platform.isAndroid) {
+                              //   SystemChrome.setEnabledSystemUIOverlays([]);
+                              // }
+                              // if (Platform.isIOS) {
+                              //   SystemChrome.setEnabledSystemUIOverlays(
+                              //       [SystemUiOverlay.bottom]);
+                              // }
+                            } else {
+                              SystemChrome.setEnabledSystemUIOverlays([
+                                SystemUiOverlay.bottom,
+                                SystemUiOverlay.top
+                              ]);
+                              SystemChrome.setPreferredOrientations(
+                                  [DeviceOrientation.portraitUp]);
+                              Provider.of<VideoPlayerControlle>(context,
+                                      listen: false)
+                                  .pause = false;
                             }
                           },
                           child: SvgPicture.asset(

@@ -40,6 +40,8 @@ class _VLCScreenState extends State<VLCScreen> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     );
@@ -47,7 +49,7 @@ class _VLCScreenState extends State<VLCScreen> {
       _controller = VlcPlayerController.asset("${argumentsVlcVideoIntro.url}");
     } else {
       _controller =
-          VlcPlayerController.network("${argumentsVlcVideoIntro.url}");
+          VlcPlayerController.network("${argumentsVlcVideoIntro.url}", );
     }
 
     _controller.addListener(listener);
@@ -97,7 +99,7 @@ class _VLCScreenState extends State<VLCScreen> {
   }
 
   // Future<void> setRatio(double width, double height) async {
-  //   // await _controller.setVideoAspectRatio("$width:$height");
+  //   await _controller.setVideoAspectRatio("$width:$height");
   //   // double escala = 0;
 
   //   // if (Platform.isIOS &&
@@ -124,7 +126,7 @@ class _VLCScreenState extends State<VLCScreen> {
 
   //   // print("width phone result: " + escala.toString());
   //   // // await _controller.setVideoScale(escala);
-  //   // await _controller.setVideoScale(0);
+  //   await _controller.setVideoScale(0.2);
   // }
 
   void _onSliderPositionChanged(double progress) {
@@ -170,7 +172,7 @@ class _VLCScreenState extends State<VLCScreen> {
                     children: [
                       Container(
                         color: Colors.transparent,
-                        height: height * 0.945,
+                        height: MediaQuery.of(context).orientation == Orientation.portrait ? height * 0.945 : height * 0.92,
                       ),
                       Container(
                         color: Provider.of<VideoPlayerControlle>(context,
@@ -178,7 +180,7 @@ class _VLCScreenState extends State<VLCScreen> {
                                 .firstClick
                             ? Colors.black87
                             : Colors.transparent,
-                        height: height * 0.055,
+                        height: MediaQuery.of(context).orientation == Orientation.portrait ?  height * 0.055 : height * 0.08,
                       )
                     ],
                   ),
@@ -192,7 +194,7 @@ class _VLCScreenState extends State<VLCScreen> {
                                 .firstClick
                             ? Colors.black54
                             : Colors.transparent,
-                        height: height * 0.945,
+                        height: MediaQuery.of(context).orientation == Orientation.portrait ? height * 0.945 : height * 0.92,
                         child: ControlsTopWidget(
                           controller: _controller,
                         ),
@@ -203,7 +205,7 @@ class _VLCScreenState extends State<VLCScreen> {
                               width: width,
                               child: SliderTheme(
                                 data: SliderTheme.of(context).copyWith(
-                                  trackHeight: 2.0,
+                                  trackHeight: 3.0,
                                   trackShape: CustomTrackShape(),
                                 ),
                                 child: Slider(
@@ -224,7 +226,7 @@ class _VLCScreenState extends State<VLCScreen> {
                             )
                           : Container(),
                       Container(
-                        height: height * 0.035,
+                        height: MediaQuery.of(context).orientation == Orientation.portrait ?  height * 0.035 : height * 0.065,
                         child: ControlsBottomWidget(
                           controller: _controller,
                         ),

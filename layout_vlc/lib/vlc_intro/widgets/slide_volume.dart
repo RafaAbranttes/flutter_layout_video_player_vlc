@@ -30,7 +30,16 @@ class _SlideVolumeWidgetState extends State<SlideVolumeWidget> {
 
     return Container(
       margin: EdgeInsets.only(
-          left: width * 0.025, right: width * 0.025, bottom: height * 0.015),
+        left: MediaQuery.of(context).orientation == Orientation.portrait
+            ? width * 0.025
+            : width * 0.015,
+        right: MediaQuery.of(context).orientation == Orientation.portrait
+            ? width * 0.025
+            : width * 0.015,
+        bottom: MediaQuery.of(context).orientation == Orientation.portrait
+            ? height * 0.015
+            : height * 0.0225,
+      ),
       width: width * 0.2,
       height: height * 0.03,
       child: SizedBox(
