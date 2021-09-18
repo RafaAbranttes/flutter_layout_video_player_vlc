@@ -46,6 +46,11 @@ class ControlsBottomWidget extends StatelessWidget {
                               controller.pause();
                             } else {
                               controller.play();
+                              Future.delayed(Duration(seconds: 2), () {
+                                Provider.of<VideoPlayerControlle>(context,
+                                        listen: false)
+                                    .firstClick = false;
+                              });
                             }
                           },
                           child: Provider.of<VideoPlayerControlle>(context,
