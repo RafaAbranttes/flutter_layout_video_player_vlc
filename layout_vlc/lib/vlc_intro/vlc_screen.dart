@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
+import 'package:layout_vlc/routes/routes.dart';
 import 'package:layout_vlc/vlc_intro/arguments/arguments_vlc_video_intro.dart';
 import 'package:layout_vlc/vlc_intro/controller/video_player_controller.dart';
 import 'package:layout_vlc/vlc_intro/widgets/controls_bottom_widget.dart';
@@ -86,8 +87,10 @@ class _VLCScreenState extends State<VLCScreen> {
         validPosition = oDuration.compareTo(oPosition) >= 0;
         sliderValue = validPosition ? oPosition.inSeconds.toDouble() : 0;
       }
-      Provider.of<VideoPlayerControlle>(context, listen: false).position = position;
-      Provider.of<VideoPlayerControlle>(context, listen: false).duration = duration;
+      Provider.of<VideoPlayerControlle>(context, listen: false).position =
+          position;
+      Provider.of<VideoPlayerControlle>(context, listen: false).duration =
+          duration;
 
       setState(() {});
     }
@@ -136,6 +139,13 @@ class _VLCScreenState extends State<VLCScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
+    if (_controller.value.playingState == PlayingState.ended) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _controller.stop();
+        Navigator.of(context).popUntil(ModalRoute.withName(Routes.HOME));
+      });
+    }
 
     return Scaffold(
       body: Container(
