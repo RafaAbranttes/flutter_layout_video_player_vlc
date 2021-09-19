@@ -35,8 +35,8 @@ class ControlsTopWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: height * 0.1,
-                      width: height * 0.1,
+                      height: MediaQuery.of(context).orientation == Orientation.portrait ? height * 0.1 : height * 0.17,
+                      width: MediaQuery.of(context).orientation == Orientation.portrait ?  height * 0.1 : height * 0.17,
                       child: GestureDetector(
                         onTap: () {
                           Provider.of<VideoPlayerControlle>(context,
@@ -58,8 +58,8 @@ class ControlsTopWidget extends StatelessWidget {
                       width: width * 0.03,
                     ),
                     SizedBox(
-                      height: height * 0.15,
-                      width: height * 0.15,
+                      height: MediaQuery.of(context).orientation == Orientation.portrait ? height * 0.15 : height * 0.25,
+                      width: MediaQuery.of(context).orientation == Orientation.portrait ? height * 0.15 : height * 0.25,
                       child: GestureDetector(
                         onTap: () {
                           Provider.of<VideoPlayerControlle>(context,
@@ -93,8 +93,8 @@ class ControlsTopWidget extends StatelessWidget {
                       width: width * 0.03,
                     ),
                     SizedBox(
-                      height: height * 0.1,
-                      width: height * 0.1,
+                      height: MediaQuery.of(context).orientation == Orientation.portrait ?  height * 0.1 : height * 0.17,
+                      width: MediaQuery.of(context).orientation == Orientation.portrait ?  height * 0.1 : height * 0.17,
                       child: GestureDetector(
                         onTap: () {
                           Provider.of<VideoPlayerControlle>(context,

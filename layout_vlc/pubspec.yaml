@@ -52,6 +52,7 @@ flutter:
   assets:
     - assets/01.mp4
     - assets/02.mp4
+    - assets/03.mp4
     - assets/sample.mp4
     - assets/icons/icon-arrow.svg
     - assets/icons/icon-lock.svg
