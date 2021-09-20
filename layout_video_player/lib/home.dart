@@ -23,7 +23,8 @@ class Home extends StatelessWidget {
                   heightGlobal: height,
                   widthGlobal: width,
                   inApp: true,
-                  url: "assets/02.mp4",
+                  url: "assets/01.mp4",
+                  isIntroPage: true,
                 ),
               );
             },

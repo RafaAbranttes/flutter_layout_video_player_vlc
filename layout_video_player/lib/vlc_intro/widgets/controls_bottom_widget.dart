@@ -245,13 +245,12 @@ class ControlsBottomWidget extends StatelessWidget {
                           },
                           child: Stack(
                             children: [
-                              Icon(
-                                Icons.timer,
-                                color: Colors.white,
-                                size : MediaQuery.of(context).orientation ==
+                              Icon(Icons.timer,
+                                  color: Colors.white,
+                                  size: MediaQuery.of(context).orientation ==
                                           Orientation.portrait
-                                      ? height * 0.025 : height * 0.045
-                              ),
+                                      ? height * 0.025
+                                      : height * 0.045),
                               Container(
                                 margin: EdgeInsets.only(
                                   left: MediaQuery.of(context).orientation ==
@@ -282,9 +281,11 @@ class ControlsBottomWidget extends StatelessWidget {
                                         .toString(),
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize:MediaQuery.of(context).orientation ==
-                                          Orientation.portrait
-                                      ? height * 0.008 : height * 0.012),
+                                        fontSize: MediaQuery.of(context)
+                                                    .orientation ==
+                                                Orientation.portrait
+                                            ? height * 0.008
+                                            : height * 0.012),
                                   ),
                                 ),
                               ),
@@ -315,12 +316,16 @@ class ControlsBottomWidget extends StatelessWidget {
                             if (Provider.of<VideoPlayerControlle>(context,
                                     listen: false)
                                 .fullScreen) {
-                              SystemChrome.setEnabledSystemUIOverlays([]);
-                              SystemChrome.setPreferredOrientations(
-                                  [DeviceOrientation.landscapeRight]);
-                              Provider.of<VideoPlayerControlle>(context,
-                                      listen: false)
-                                  .pause = false;
+                              if (controller.value.aspectRatio >= 1.5) {
+                                SystemChrome.setEnabledSystemUIOverlays([]);
+                                SystemChrome.setPreferredOrientations(
+                                    [DeviceOrientation.landscapeRight]);
+                              } else {
+                                SystemChrome.setEnabledSystemUIOverlays([]);
+                              }
+                              // Provider.of<VideoPlayerControlle>(context,
+                              //         listen: false)
+                              //     .pause = false;
                               // if (Platform.isAndroid) {
                               //   SystemChrome.setEnabledSystemUIOverlays([]);
                               // }
@@ -335,9 +340,9 @@ class ControlsBottomWidget extends StatelessWidget {
                               ]);
                               SystemChrome.setPreferredOrientations(
                                   [DeviceOrientation.portraitUp]);
-                              Provider.of<VideoPlayerControlle>(context,
-                                      listen: false)
-                                  .pause = false;
+                              // Provider.of<VideoPlayerControlle>(context,
+                              //         listen: false)
+                              //     .pause = false;
                             }
                           },
                           child: SvgPicture.asset(

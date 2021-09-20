@@ -20,7 +20,7 @@ class _SlideVolumeWidgetState extends State<SlideVolumeWidget> {
       sliderValue = progress.floor().toDouble();
     });
     //convert to Milliseconds since VLC requires MS to set time
-    this.widget.controller.setVolume(sliderValue);
+    this.widget.controller.setVolume(sliderValue / 100);
   }
 
   @override

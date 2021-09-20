@@ -58,7 +58,6 @@ class _VLCScreenState extends State<VLCScreen> {
     // _controller.addListener(() {
     //   setState(() {});
     // });
-    _controller.setLooping(true);
     _controller.initialize().then((_) => setState(() {}));
     _controller.play();
   }
@@ -67,8 +66,8 @@ class _VLCScreenState extends State<VLCScreen> {
   void dispose() async {
     super.dispose();
     // if (_timer != null) _timer.cancel();
-    if (_controller.value.isPlaying) _controller.pause();
-    _controller.removeListener(listener);
+    // if (_controller.value.isPlaying) _controller.pause();
+    // _controller.removeListener(listener);
     _controller.dispose();
     SystemChrome.setEnabledSystemUIOverlays(
         [SystemUiOverlay.top, SystemUiOverlay.bottom]);
@@ -150,12 +149,16 @@ class _VLCScreenState extends State<VLCScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    // if (_controller.value. == PlayingState.ended) {
-    //   WidgetsBinding.instance.addPostFrameCallback((_) {
-    //     _controller.stop();
-    //     Navigator.of(context).popUntil(ModalRoute.withName(Routes.HOME));
-    //   });
-    // }
+    if (_controller.value.isInitialized &&
+        _controller.value.duration.inSeconds ==
+            _controller.value.position.inSeconds) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _controller.pause();
+        if (argumentsVlcVideoIntro.isIntroPage) {
+          Navigator.of(context).popUntil(ModalRoute.withName(Routes.HOME));
+        }
+      });
+    }
 
     return Scaffold(
       body: Container(
@@ -163,13 +166,34 @@ class _VLCScreenState extends State<VLCScreen> {
           children: [
             Center(
               child: Container(
-                
                 alignment: Alignment.topCenter,
                 height: height,
                 width: width,
-                color: Colors.pink,
+                color: Colors.black,
                 child: _controller.value.isInitialized
-                    ? VideoPlayer(_controller)
+                    ? _controller.value.aspectRatio >= 1.5
+                        ? Center(
+                            child: AspectRatio(
+                              aspectRatio:
+                                  Provider.of<VideoPlayerControlle>(context)
+                                          .fullScreen
+                                      ? width / height
+                                      : _controller.value.aspectRatio,
+                              child: VideoPlayer(_controller),
+                            ),
+                          )
+                        : Center(
+                            child: AspectRatio(
+                              aspectRatio: MediaQuery.of(context).orientation ==
+                                      Orientation.portrait
+                                  ? Provider.of<VideoPlayerControlle>(context)
+                                          .fullScreen
+                                      ? width / height
+                                      : _controller.value.aspectRatio
+                                  : _controller.value.aspectRatio,
+                              child: VideoPlayer(_controller),
+                            ),
+                          )
                     : Center(child: CircularProgressIndicator()),
               ),
             ),
