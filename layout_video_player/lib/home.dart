@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:layout_video_player/routes/routes.dart';
-import 'package:layout_video_player/vlc_intro/arguments/arguments_vlc_video_intro.dart';
-import 'package:layout_video_player/vlc_intro/controller/video_player_controller.dart';
+import 'package:layout_video_player/video/arguments/arguments_vlc_video_intro.dart';
+import 'package:layout_video_player/video/controller/video_player_controller.dart';
+
+
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {

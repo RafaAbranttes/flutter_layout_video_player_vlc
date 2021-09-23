@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:layout_video_player/vlc_intro/controller/video_player_controller.dart';
+import 'package:layout_video_player/video/controller/video_player_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 

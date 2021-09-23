@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:layout_video_player/routes/routes.dart';
-import 'package:layout_video_player/vlc_intro/controller/video_player_controller.dart';
-import 'package:layout_video_player/vlc_intro/widgets/controls_bottom_widget.dart';
-import 'package:layout_video_player/vlc_intro/widgets/contros_top_widget.dart';
+import 'package:layout_video_player/video/controller/video_player_controller.dart';
+import 'package:layout_video_player/video/widgets/controls_bottom_widget.dart';
+import 'package:layout_video_player/video/widgets/contros_top_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
