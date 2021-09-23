@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.11.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -28,6 +28,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  provider: ^6.0.0
+  video_player: ^2.2.3
+  flutter_svg: ^0.22.0
+  flutter_statusbar_manager: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +49,48 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/01.mp4 
+    - assets/02.mp4
+    - assets/03.mp4
+    - assets/04.mp4
+    - assets/icons/icon-arrow.svg
+    - assets/icons/icon-lock.svg
+    - assets/icons/icon-message.svg
+    - assets/icons/icon-profile.svg
+    - assets/icons/icon-calendar.svg
+    - assets/icons/icon-profile.svg
+    - assets/icons/icon-setting.svg
+    - assets/icons/icon-show.svg
+    - assets/icons/icon-camera.svg
+    - assets/icons/icon-seta.svg
+    - assets/icons/icon-play.svg
+    - assets/icons/icon-voice.svg
+    - assets/icons/icon-play.svg
+    - assets/icons/icon-play-big.svg
+    - assets/icons/icon-expandir.svg
+    - assets/icons/icon-avancar-10s.svg
+    - assets/icons/icon-voltar-10s.svg
+    - assets/icons/icon-volume-up.svg
+    - assets/icons/icon-volume-off.svg
+    - assets/icons/icon-seta.svg
+    - assets/icons/icon-logo.png
+    - assets/icons/icon-pause.svg
+    - assets/icons/icon-som-off.svg
+    - assets/icons/icon-time.svg
+    - assets/icons/icon-intensidade.svg
+    - assets/icons/icon-next.svg
+    - assets/icons/icon-pause.svg
+    - assets/icons/icon-stop.svg
+    - assets/icons/icon-checkbox-off.svg
+    - assets/icons/icon-checkbox-on.svg
+    - assets/icons/icon-pause-small.svg
+    - assets/icons/icon-time.svg
+    - assets/icons/icon-chat.svg
+    - assets/icons/pause_clean.png
+    - assets/icons/play_clean.png
+    - assets/icons/logo_ios.png
+    - assets/icons/icon-share.svg
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
